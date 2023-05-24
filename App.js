@@ -10,6 +10,7 @@ import AllExpenses from "./screens/AllExpenses";
 import ManageExpense from "./screens/ManageExpense";
 
 import { GlobalStyles } from "./constants/styles";
+import IconButton from "./components/ui/IconButton";
 
 export default function App() {
   const BottomTabs = createBottomTabNavigator();
@@ -23,6 +24,14 @@ export default function App() {
           headerTintColor: "white",
           tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500 },
           tabBarActiveTintColor: GlobalStyles.colors.accent500,
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="add"
+              size={24}
+              color={tintColor}
+              onPress={() => {}}
+            />
+          ),
         }}
       >
         <BottomTabs.Screen
