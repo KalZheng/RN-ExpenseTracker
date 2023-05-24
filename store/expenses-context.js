@@ -5,13 +5,13 @@ const DUMMY_EXPENSES = [
     id: "e1",
     description: "a pair of shoes",
     amount: 59.99,
-    date: new Date("2021-12-19"),
+    date: new Date("2023-05-23"),
   },
   {
     id: "e2",
     description: "some banana",
     amount: 5.99,
-    date: new Date("2021-01-19"),
+    date: new Date("2023-05-17"),
   },
   {
     id: "e3",
@@ -98,7 +98,7 @@ function ExpensesContextProvider({ children }) {
   }
 
   const value = {
-    expense: expensesState,
+    expenses: expensesState,
     addExpense: addExpense,
     deleteExpense: deleteExpense,
     updateExpense: updateExpense,
