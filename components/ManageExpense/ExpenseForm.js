@@ -5,17 +5,17 @@ import Input from "./Input";
 function ExpenseForm() {
   function amountChangeHandler() {}
   const amountConfig = {
-    keyBoardType: "decimal-pad",
+    keyboardType: "decimal-pad",
     onChangeText: amountChangeHandler,
   };
   const dateConfig = {
-    placeHolder: "YYYY-MM-DD",
+    placeholder: "YYYY-MM-DD",
     maxlength: 10,
     onChangeText: () => {},
   };
 
   const descriptionConfig = {
-    multiLine: true,
+    multiline: true,
     // autoCaptitalize: 'none', //default sentense
     // autoCorrect: false, //default is true
   };
