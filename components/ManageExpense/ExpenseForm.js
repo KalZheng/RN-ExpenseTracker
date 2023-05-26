@@ -4,6 +4,7 @@ import { Alert, StyleSheet, Text, View } from "react-native";
 import Input from "./Input";
 import Button from "../ui/Button";
 import { getFormattedDate } from "../../util/date";
+import { GlobalStyles } from "../../constants/styles";
 
 function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
   const [inputs, setInputs] = useState({
@@ -40,11 +41,11 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
       description: inputs.description.value,
     };
     // we do validation here
-    const amountIsValid = isNaN(expenseData.amount) && expenseData.amount > 0;
-    const dateISValid = expenseData.date.toString() !== "Invalid Date";
+    const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0;
+    const dateIsValid = expenseData.date.toString() !== "Invalid Date";
     const descriptionIsValid = expenseData.description.trim().length > 0;
 
-    if (!amountIsValid || !dateISValid || !descriptionIsValid) {
+    if (!amountIsValid || !dateIsValid || !descriptionIsValid) {
       // Alert.alert("Invalid Input", "Please check your input values");
       setInputs((curInputs) => {
         return {
@@ -54,7 +55,7 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
           },
           date: {
             value: curInputs.date.value,
-            isValid: dateISValid,
+            isValid: dateIsValid,
           },
           description: {
             value: curInputs.description.value,
@@ -99,17 +100,25 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
         <Input
           containerStyle={styles.rowInput}
           label="Amount"
+          invalid={!inputs.amount.isValid}
           textInputConfig={amountConfig}
         />
         <Input
           containerStyle={styles.rowInput}
           label="Date"
+          invalid={!inputs.date.isValid}
           textInputConfig={dateConfig}
         />
       </View>
-      <Input label="Description" textInputConfig={descriptionConfig} />
+      <Input
+        label="Description"
+        invalid={!inputs.description.isValid}
+        textInputConfig={descriptionConfig}
+      />
       {formIsInvalid && (
-        <Text>Invalid input values - please check your entered data!</Text>
+        <Text style={styles.errorText}>
+          Invalid input values - please check your entered data!
+        </Text>
       )}
       <View style={styles.buttonContainer}>
         <Button style={styles.button} mode="flat" onPress={onCancel}>
@@ -143,6 +152,11 @@ const styles = StyleSheet.create({
   rowInput: {
     flex: 1,
     marginHorizontal: 4,
+  },
+  errorText: {
+    textAlign: "center",
+    color: GlobalStyles.colors.error500,
+    margin: 8,
   },
   buttonContainer: {
     flexDirection: "row",
