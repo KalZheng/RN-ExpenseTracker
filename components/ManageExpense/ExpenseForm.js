@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 
 import Input from "./Input";
 import Button from "../ui/Button";
@@ -27,6 +27,16 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
       date: new Date(inputValues.date),
       description: inputValues.amount,
     };
+    // we do validation here
+    const amountIsValid = isNaN(expenseData.amount) && expenseData.amount > 0;
+    const dateISValid = expenseData.date.toString() !== "Invalid Date";
+    const descriptionIsValid = expenseData.description.trim().length > 0;
+
+    if (!amountIsValid || !dateISValid || !descriptionIsValid) {
+      Alert.alert("Invalid Input", "Please check your input values");
+      return;
+    }
+
     onSubmit(expenseData);
   }
 
