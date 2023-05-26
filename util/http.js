@@ -6,7 +6,7 @@ const backendUrl =
 export async function storeExpense(expenseData) {
   const response = await axios.post(backendUrl + "expenses.json", expenseData);
   const id = response.data.name;
-  return id
+  return id;
 }
 
 export async function fetchExpense() {
@@ -24,4 +24,12 @@ export async function fetchExpense() {
     expenses.push(expenseObj);
   }
   return expenses;
+}
+
+export function updateExpense(id, expenseData) {
+  return axios.put(backendUrl + `expenses/${id}.json`, expenseData);
+}
+
+export function deleteExpense(id) {
+  return axios.delete(backendUrl + `expenses/${id}.json`);
 }
