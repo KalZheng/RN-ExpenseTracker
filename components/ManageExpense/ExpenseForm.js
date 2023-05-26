@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Input from "./Input";
 import Button from "../ui/Button";
 
-function ExpenseForm({submitButtonLabel, isEditing, onCancel, onSubmit}) {
+function ExpenseForm({ submitButtonLabel, onCancel, onSubmit }) {
   const [inputValues, setInputValues] = useState({
     amount: "",
     date: "",
@@ -20,7 +20,14 @@ function ExpenseForm({submitButtonLabel, isEditing, onCancel, onSubmit}) {
     });
   }
 
-  function submitHandler() {}
+  function submitHandler() {
+    const expenseData = {
+      amount: +inputValues.amount,
+      date: new Date(inputValues.date),
+      description: inputValues.amount,
+    };
+    onSubmit(expenseData);
+  }
 
   const amountConfig = {
     keyboardType: "decimal-pad",
