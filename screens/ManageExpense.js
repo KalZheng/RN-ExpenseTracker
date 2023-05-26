@@ -3,9 +3,9 @@ import { View, StyleSheet } from "react-native";
 
 import IconButton from "../components/ui/IconButton";
 import { GlobalStyles } from "../constants/styles";
-import Button from "../components/ui/Button";
 import { ExpenseContext } from "../store/expenses-context";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
+import { storeExpense } from "../util/http";
 
 function ManageExpense({ route, navigation }) {
   const expenseCtx = useContext(ExpenseContext);
@@ -15,7 +15,9 @@ function ManageExpense({ route, navigation }) {
   const editedExpenseId = route.params?.expenseId;
   const isEditing = !!editedExpenseId; //convert value into boolean
 
-  const selectedExpense = expenseCtx.expenses.find(expense => expense.id === editedExpenseId);
+  const selectedExpense = expenseCtx.expenses.find(
+    (expense) => expense.id === editedExpenseId
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -36,6 +38,7 @@ function ManageExpense({ route, navigation }) {
     if (isEditing) {
       expenseCtx.updateExpense(editedExpenseId, expenseData);
     } else {
+      storeExpense(expenseData);
       expenseCtx.addExpense(expenseData);
     }
     navigation.goBack();
